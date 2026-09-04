@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Registration | KisanSetu</title>
+
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-left">
+        <div class="brand 
+
+        const registerForm = document.getElementById("registerForm");
+
+if (registerForm) {
+
+    registerForm.addEventListener("submit", async function (e) {
+
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const village = document.getElementById("village").value.trim();
+        const district = document.getElementById("district").value.trim();
+
+        // Mobile validation
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        try {
+
+            const response = await fetch("http://localhost:5000/api/farmers", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    mobile: mobile,
+                    village: village,
+                    district: district
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.error || "Registration failed");
+                return;
+            }
+
+            alert("Registration successful! Please login.");
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Server connection failed. Please check backend.");
+
+        }
+
+    });
+
+}
+            <p>✓ Easy Slot Booking</p>
+            <p>✓ Real-Time Queue Tracking</p>
+            <p>✓ Procurement Status</p>
+            <p>✓ Payment Tracking</p>
+        </div>
+    </div>
+
+
+    <div class="auth-card">
+
+        <h2>Farmer Registration</h2>
+
+        <p class="subtitle">
+            Create your account
+        </p>
+
+        <form id="registerForm">
+
+            <label>Farmer Name</label>
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                required
+            >
+
+            <label>Mobile Number</label>
+            <input
+                type="tel"
+                id="mobile"
+                placeholder="Enter 10-digit mobile number"
+                maxlength="10"
+                required
+            >
+
+            <label>Village</label>
+            <input
+                type="text"
+                id="village"
+                placeholder="Enter village name"
+                required
+            >
+
+            <label>District</label>
+            <input
+                type="text"
+                id="district"
+                placeholder="Enter district"
+                required
+            >
+
+            <label>State</label>
+            <select id="state" required>
+                <option value="">Select State</option>
+                <option>Uttar Pradesh</option>
+                <option>Haryana</option>
+                <option>Punjab</option>
+                <option>Rajasthan</option>
+                <option>Madhya Pradesh</option>
+                <option>Other</option>
+            </select>
+
+            <label>Crop</label>
+            <select id="crop" required>
+                <option value="">Select Crop</option>
+                <option>Wheat</option>
+                <option>Rice</option>
+                <option>Maize</option>
+                <option>Mustard</option>
+                <option>Other</option>
+            </select>
+
+            <label>Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Create password"
+                required
+            >
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="bottom-text">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+    </div>
+
+</div>
+
+<script src="auth.js"></script>
+
+</body>
+</html>
